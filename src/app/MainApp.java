@@ -65,6 +65,7 @@ public class MainApp extends javax.swing.JFrame {
         mniAbout = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("iTomato Player");
 
         jLabel1.setText("Tệp tin đang mở");
 
@@ -222,6 +223,7 @@ public class MainApp extends javax.swing.JFrame {
                 }
             }
         } catch (Exception e) {
+            System.out.println(e.getMessage());
         }
     }//GEN-LAST:event_btnOpenActionPerformed
 
@@ -233,17 +235,19 @@ public class MainApp extends javax.swing.JFrame {
         File f = new File(fileName);
         try {
             fis = new FileInputStream(f);
-            bis = new BufferedInputStream(bis);
+            bis = new BufferedInputStream(fis);
             player = new Player(bis);
             max = getDuration(f);
             sliderProcess.setMaximum(max);
         } catch (Exception e) {
+            System.out.println(e.getMessage());
         }
         playingThread = new Thread(){
             public void run(){
                 try {
                     player.play();
                 } catch (Exception e) {
+                    System.out.println(e.getMessage());
                 }
             }
         };
@@ -258,6 +262,7 @@ public class MainApp extends javax.swing.JFrame {
                 }
                 sliderProcess.setValue(max);
             } catch (Exception e) {
+                System.out.println(e.getMessage());
             }
             btnStopActionPerformed(null);
           }  
@@ -270,6 +275,14 @@ public class MainApp extends javax.swing.JFrame {
 
     private void btnStopActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnStopActionPerformed
         // TODO add your handling code here:
+        if(player != null){
+            player.close();
+        }
+        btnStart.setEnabled(true);
+        btnStop.setEnabled(false);
+        sliderProcess.setValue(0);
+        playingThread.interrupt();
+        strackBarThread.interrupt();
     }//GEN-LAST:event_btnStopActionPerformed
 
     /**
