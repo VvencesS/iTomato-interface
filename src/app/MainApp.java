@@ -6,6 +6,9 @@
 package app;
 
 import java.io.File;
+import java.util.concurrent.TimeUnit;
+import javax.sound.sampled.AudioFileFormat;
+import javax.sound.sampled.AudioSystem;
 import javax.swing.JFileChooser;
 
 /**
@@ -174,6 +177,23 @@ public class MainApp extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private int getDuration(File f) throws Exception{
+        int mili = 0;
+        int sec = 0;
+        AudioFileFormat fileFormat = AudioSystem.getAudioFileFormat(f);
+        long microsecond = (long)fileFormat.properties().get("duration");
+        mili = (int)(microsecond/100);
+        sec = mili/100;
+        return sec;
+    }
+    private String getDurationFormat(File f) throws Exception{
+        AudioFileFormat fileFormat = AudioSystem.getAudioFileFormat(f);
+        long microsecond = (long)fileFormat.properties().get("duration");
+        long sec = TimeUnit.MICROSECONDS.toSeconds(microsecond);
+        long minute = TimeUnit.MICROSECONDS.toMinutes(microsecond);
+        long hour = TimeUnit.MICROSECONDS.toHours(microsecond);
+        return hour + ":" + minute + ":" + sec;
+    }
     private void btnOpenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOpenActionPerformed
         // TODO add your handling code here:
         try {
