@@ -5,6 +5,9 @@
  */
 package app;
 
+import java.io.File;
+import javax.swing.JFileChooser;
+
 /**
  *
  * @author Admin
@@ -14,6 +17,8 @@ public class MainApp extends javax.swing.JFrame {
     /**
      * Creates new form MainApp
      */
+    
+    JFileChooser fileDialog = new JFileChooser();
     public MainApp() {
         initComponents();
         setLocationRelativeTo(null);
@@ -54,6 +59,11 @@ public class MainApp extends javax.swing.JFrame {
         jLabel1.setText("Tệp tin đang mở");
 
         btnOpen.setText("Chọn bài");
+        btnOpen.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnOpenActionPerformed(evt);
+            }
+        });
 
         sliderProcess.setForeground(new java.awt.Color(153, 153, 153));
 
@@ -163,6 +173,20 @@ public class MainApp extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnOpenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOpenActionPerformed
+        // TODO add your handling code here:
+        try {
+            int result = fileDialog.showOpenDialog(this);
+            if(result == JFileChooser.APPROVE_OPTION){
+                File f = fileDialog.getSelectedFile();
+                if(f.isFile()){
+                    this.txtSelectedFile.setText(f.getCanonicalPath());
+                }
+            }
+        } catch (Exception e) {
+        }
+    }//GEN-LAST:event_btnOpenActionPerformed
 
     /**
      * @param args the command line arguments
