@@ -5,11 +5,12 @@
  */
 package app;
 
-import java.io.File;
+import java.io.*;
 import java.util.concurrent.TimeUnit;
 import javax.sound.sampled.AudioFileFormat;
 import javax.sound.sampled.AudioSystem;
 import javax.swing.JFileChooser;
+import javazoom.jl.player.Player;
 
 /**
  *
@@ -22,6 +23,12 @@ public class MainApp extends javax.swing.JFrame {
      */
     
     JFileChooser fileDialog = new JFileChooser();
+    String fileName;
+    Player player;
+    Thread playingThread;
+    Thread strackBarThread;
+    int max = 0;
+    
     public MainApp() {
         initComponents();
         setLocationRelativeTo(null);
@@ -71,8 +78,18 @@ public class MainApp extends javax.swing.JFrame {
         sliderProcess.setForeground(new java.awt.Color(153, 153, 153));
 
         btnStart.setText("Bắt đầu");
+        btnStart.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnStartActionPerformed(evt);
+            }
+        });
 
         btnStop.setText("Kết thúc");
+        btnStop.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnStopActionPerformed(evt);
+            }
+        });
 
         btnRemove.setText("Xóa khỏi danh sách");
 
@@ -207,6 +224,53 @@ public class MainApp extends javax.swing.JFrame {
         } catch (Exception e) {
         }
     }//GEN-LAST:event_btnOpenActionPerformed
+
+    private void btnStartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnStartActionPerformed
+        // TODO add your handling code here:
+        fileName = txtSelectedFile.getText();
+        FileInputStream fis = null;
+        BufferedInputStream bis = null;
+        File f = new File(fileName);
+        try {
+            fis = new FileInputStream(f);
+            bis = new BufferedInputStream(bis);
+            player = new Player(bis);
+            max = getDuration(f);
+            sliderProcess.setMaximum(max);
+        } catch (Exception e) {
+        }
+        playingThread = new Thread(){
+            public void run(){
+                try {
+                    player.play();
+                } catch (Exception e) {
+                }
+            }
+        };
+        strackBarThread = new Thread(){
+          public void run(){
+            try {
+                int n = 0;
+                //Kiem tra bai hat da chay xong && thread chay bai hat con chay hay khong?
+                while(!player.isComplete() && playingThread.isAlive()){
+                    sliderProcess.setValue(n++);
+                    Thread.sleep(1000);
+                }
+                sliderProcess.setValue(max);
+            } catch (Exception e) {
+            }
+            btnStopActionPerformed(null);
+          }  
+        };
+        playingThread.start();
+        strackBarThread.start();
+        btnStart.setEnabled(false);
+        btnStop.setEnabled(true);
+    }//GEN-LAST:event_btnStartActionPerformed
+
+    private void btnStopActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnStopActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnStopActionPerformed
 
     /**
      * @param args the command line arguments
