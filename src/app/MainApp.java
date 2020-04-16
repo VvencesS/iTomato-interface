@@ -6,10 +6,12 @@
 package app;
 
 import java.io.*;
+import java.util.Vector;
 import java.util.concurrent.TimeUnit;
 import javax.sound.sampled.AudioFileFormat;
 import javax.sound.sampled.AudioSystem;
 import javax.swing.JFileChooser;
+import javax.swing.table.DefaultTableModel;
 import javazoom.jl.player.Player;
 
 /**
@@ -28,10 +30,19 @@ public class MainApp extends javax.swing.JFrame {
     Thread playingThread;
     Thread strackBarThread;
     int max = 0;
-    
+    Vector header = new Vector();
+    Vector data = new Vector();
+    DefaultTableModel tblModel;
     public MainApp() {
         initComponents();
         setLocationRelativeTo(null);
+        
+        header.add("Tên bài hát");
+        header.add("Thời lượng");
+        header.add("Vị trí");
+        
+        tblModel = (DefaultTableModel) tblSongList.getModel();
+        tblModel.setDataVector(data, header);
     }
 
     /**
@@ -97,6 +108,11 @@ public class MainApp extends javax.swing.JFrame {
         btnSave.setText("Lưu danh sách");
 
         btnAdd.setText("Thêm bài hát");
+        btnAdd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddActionPerformed(evt);
+            }
+        });
 
         tblSongList.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -284,6 +300,33 @@ public class MainApp extends javax.swing.JFrame {
         playingThread.interrupt();
         strackBarThread.interrupt();
     }//GEN-LAST:event_btnStopActionPerformed
+
+    void addFileToTable(File[] files) throws Exception{
+        for(File song : files){
+            String name = song.getName();
+            String duration = getDurationFormat(song);
+            String location = song.getCanonicalPath();
+            
+            Vector v = new Vector();
+            v.add(name);
+            v.add(duration);
+            v.add(location);
+            data.add(v);
+        }
+        tblSongList.updateUI();
+    }
+    private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
+        // TODO add your handling code here:
+        fileDialog.setMultiSelectionEnabled(true); //Cho phep chon nhieu file
+        int result = fileDialog.showOpenDialog(this);
+        if(result == JFileChooser.APPROVE_OPTION){
+            File[] files = fileDialog.getSelectedFiles();
+            try {
+                addFileToTable(files);
+            } catch (Exception e) {
+            }
+        }
+    }//GEN-LAST:event_btnAddActionPerformed
 
     /**
      * @param args the command line arguments
