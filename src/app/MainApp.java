@@ -33,7 +33,7 @@ public class MainApp extends javax.swing.JFrame {
     Vector header = new Vector();
     Vector data = new Vector();
     DefaultTableModel tblModel;
-    String fileList = "D:\\Subject\\Java Programming Tutorial\\Code Java\\Professional programming in Java\\iTomato-Interface\\data\\songList.txt";
+    String fileList = "data\\songList.txt";
     public MainApp() {
         initComponents();
         setLocationRelativeTo(null);
