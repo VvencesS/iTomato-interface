@@ -125,6 +125,14 @@ public class MainApp extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        tblSongList.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblSongListMouseClicked(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                tblSongListMouseReleased(evt);
+            }
+        });
         jScrollPane1.setViewportView(tblSongList);
 
         jMenu1.setText("File");
@@ -327,6 +335,29 @@ public class MainApp extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_btnAddActionPerformed
+
+    private void tblSongListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblSongListMouseClicked
+        // TODO add your handling code here:
+        int row = tblSongList.getSelectedRow();
+        String location = tblSongList.getValueAt(row, 2).toString();
+        txtSelectedFile.setText(location);
+        
+        if(evt.getClickCount() == 2){
+            if(playingThread != null){
+                btnStopActionPerformed(null);
+            }
+            btnStartActionPerformed(null);
+        }
+    }//GEN-LAST:event_tblSongListMouseClicked
+
+    private void tblSongListMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblSongListMouseReleased
+        // TODO add your handling code here:
+        int row = tblSongList.getSelectedRow();
+        int column = tblSongList.getSelectedColumn();
+        
+        //Huy che do chinh sua
+        tblSongList.getCellEditor(row, column).cancelCellEditing();
+    }//GEN-LAST:event_tblSongListMouseReleased
 
     /**
      * @param args the command line arguments
