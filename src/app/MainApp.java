@@ -33,6 +33,7 @@ public class MainApp extends javax.swing.JFrame {
     Vector header = new Vector();
     Vector data = new Vector();
     DefaultTableModel tblModel;
+    String fileList = "D:\\Subject\\Java Programming Tutorial\\Code Java\\Professional programming in Java\\iTomato-Interface\\data\\songList.txt";
     public MainApp() {
         initComponents();
         setLocationRelativeTo(null);
@@ -40,6 +41,8 @@ public class MainApp extends javax.swing.JFrame {
         header.add("Tên bài hát");
         header.add("Thời lượng");
         header.add("Vị trí");
+        
+        loadSongList();
         
         tblModel = (DefaultTableModel) tblSongList.getModel();
         tblModel.setDataVector(data, header);
@@ -106,6 +109,11 @@ public class MainApp extends javax.swing.JFrame {
         btnRemove.setText("Xóa khỏi danh sách");
 
         btnSave.setText("Lưu danh sách");
+        btnSave.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSaveActionPerformed(evt);
+            }
+        });
 
         btnAdd.setText("Thêm bài hát");
         btnAdd.addActionListener(new java.awt.event.ActionListener() {
@@ -358,6 +366,42 @@ public class MainApp extends javax.swing.JFrame {
         //Huy che do chinh sua
         tblSongList.getCellEditor(row, column).cancelCellEditing();
     }//GEN-LAST:event_tblSongListMouseReleased
+
+    void loadSongList(){
+        try {
+            FileReader fr = new FileReader(fileList);
+            BufferedReader br = new BufferedReader(fr);
+            String song;
+            while((song = br.readLine()) != null){
+                String info[] = song.split(",");
+                String name = info[0];
+                String duration = info[1];
+                String location = info[2];
+                Vector row = new Vector();
+                row.add(name);
+                row.add(duration);
+                row.add(location);
+                data.add(row);
+            }
+            br.close(); fr.close();
+        } catch (Exception e) {
+        }
+    }
+    private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
+        // TODO add your handling code here:
+        try {
+            File f = new File(fileList);
+            PrintWriter pw = new PrintWriter(f);
+            int n = data.size();
+            for(int i = 0; i < n; i++){
+                Vector row = (Vector) data.get(i);
+                String s = row.get(0) + "," + row.get(1) + "," + row.get(2);
+                pw.println(s);
+            }
+            pw.close();
+        } catch (Exception e) {
+        }
+    }//GEN-LAST:event_btnSaveActionPerformed
 
     /**
      * @param args the command line arguments
