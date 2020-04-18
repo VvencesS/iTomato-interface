@@ -81,6 +81,11 @@ public class MainApp extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("iTomato Player");
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
         jLabel1.setText("Tệp tin đang mở");
 
@@ -421,6 +426,17 @@ public class MainApp extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_btnRemoveActionPerformed
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        // TODO add your handling code here:
+        int result = JOptionPane.showConfirmDialog(null, "Bạn chắc chắn muốn đóng ứng dụng", 
+                "Xác nhận", JOptionPane.YES_NO_OPTION);
+        if(result == JOptionPane.YES_OPTION){
+            System.exit(0);
+        }else{
+            setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+        }
+    }//GEN-LAST:event_formWindowClosing
 
     /**
      * @param args the command line arguments
