@@ -198,6 +198,11 @@ public class MainApp extends javax.swing.JFrame {
         jMenu2.setText("Edit");
 
         mniAbout.setText("Thông tin ứng dụng");
+        mniAbout.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mniAboutActionPerformed(evt);
+            }
+        });
         jMenu2.add(mniAbout);
 
         jMenuBar1.add(jMenu2);
@@ -477,6 +482,14 @@ public class MainApp extends javax.swing.JFrame {
         // TODO add your handling code here:
         formWindowClosing(null);
     }//GEN-LAST:event_mniExitActionPerformed
+
+    private void mniAboutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniAboutActionPerformed
+        // TODO add your handling code here:
+        About about = new About();
+        about.setLocationRelativeTo(null);
+        about.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        about.setVisible(true);
+    }//GEN-LAST:event_mniAboutActionPerformed
 
     /**
      * @param args the command line arguments
