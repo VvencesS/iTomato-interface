@@ -158,19 +158,39 @@ public class MainApp extends javax.swing.JFrame {
 
         mniOpen.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.CTRL_MASK));
         mniOpen.setText("Chọn tệp tin");
+        mniOpen.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mniOpenActionPerformed(evt);
+            }
+        });
         jMenu1.add(mniOpen);
 
         mniStart.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.CTRL_MASK));
         mniStart.setText("Bắt đầu");
+        mniStart.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mniStartActionPerformed(evt);
+            }
+        });
         jMenu1.add(mniStart);
 
         mniStop.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_E, java.awt.event.InputEvent.CTRL_MASK));
         mniStop.setText("Kết thúc");
+        mniStop.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mniStopActionPerformed(evt);
+            }
+        });
         jMenu1.add(mniStop);
         jMenu1.add(jSeparator1);
 
         mniExit.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_X, java.awt.event.InputEvent.CTRL_MASK));
         mniExit.setText("Thoát ứng dụng");
+        mniExit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mniExitActionPerformed(evt);
+            }
+        });
         jMenu1.add(mniExit);
 
         jMenuBar1.add(jMenu1);
@@ -437,6 +457,26 @@ public class MainApp extends javax.swing.JFrame {
             setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
         }
     }//GEN-LAST:event_formWindowClosing
+
+    private void mniOpenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniOpenActionPerformed
+        // TODO add your handling code here:
+        btnOpenActionPerformed(null);
+    }//GEN-LAST:event_mniOpenActionPerformed
+
+    private void mniStartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniStartActionPerformed
+        // TODO add your handling code here:
+        btnStartActionPerformed(null);
+    }//GEN-LAST:event_mniStartActionPerformed
+
+    private void mniStopActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniStopActionPerformed
+        // TODO add your handling code here:
+        btnStopActionPerformed(null);
+    }//GEN-LAST:event_mniStopActionPerformed
+
+    private void mniExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniExitActionPerformed
+        // TODO add your handling code here:
+        formWindowClosing(null);
+    }//GEN-LAST:event_mniExitActionPerformed
 
     /**
      * @param args the command line arguments
