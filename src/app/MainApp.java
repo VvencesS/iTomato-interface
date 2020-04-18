@@ -11,6 +11,7 @@ import java.util.concurrent.TimeUnit;
 import javax.sound.sampled.AudioFileFormat;
 import javax.sound.sampled.AudioSystem;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javazoom.jl.player.Player;
 
@@ -107,6 +108,11 @@ public class MainApp extends javax.swing.JFrame {
         });
 
         btnRemove.setText("Xóa khỏi danh sách");
+        btnRemove.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRemoveActionPerformed(evt);
+            }
+        });
 
         btnSave.setText("Lưu danh sách");
         btnSave.addActionListener(new java.awt.event.ActionListener() {
@@ -402,6 +408,19 @@ public class MainApp extends javax.swing.JFrame {
         } catch (Exception e) {
         }
     }//GEN-LAST:event_btnSaveActionPerformed
+
+    private void btnRemoveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoveActionPerformed
+        // TODO add your handling code here:
+        int pos = tblSongList.getSelectedRow();
+        if(pos >= 0){
+            int result = JOptionPane.showConfirmDialog(null, "Bạn có chắc chắn muốn xóa?", 
+                    "Xác nhận", JOptionPane.YES_NO_OPTION);
+            if(result == JOptionPane.YES_OPTION){
+                data.remove(pos);
+                tblSongList.updateUI();
+            }
+        }
+    }//GEN-LAST:event_btnRemoveActionPerformed
 
     /**
      * @param args the command line arguments

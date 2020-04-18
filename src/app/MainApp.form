@@ -184,6 +184,9 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="X&#xf3;a kh&#x1ecf;i danh s&#xe1;ch"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnRemoveActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="btnSave">
       <Properties>
